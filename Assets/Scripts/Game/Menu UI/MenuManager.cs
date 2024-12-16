@@ -7,14 +7,15 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject panelMenu;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject loadingScreen;
 
-    private MinimapController minimapController;
     private bool _isOpenedMenu;
     private bool _isReadyPlayer = false;
 
     private void OnEnable()
     {
         PlayerSpawner.OnPlayerReady += InitializeMiniMap;
+        Instantiate(loadingScreen);
     }
 
     private void OnDisable()
@@ -23,14 +24,8 @@ public class MenuManager : MonoBehaviour
         _isReadyPlayer = false;
     }
 
-    private void InitializeMiniMap(MinimapController controller)
+    private void InitializeMiniMap()
     {
-        minimapController = controller;
-        if (minimapController != null)
-        {
-            minimapController.SetMiniMapActive(true);
-        }
-
         _isReadyPlayer = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -49,10 +44,6 @@ public class MenuManager : MonoBehaviour
     {
         panelMenu.SetActive(isOpened);
         gameUI.SetActive(!isOpened);
-        if (minimapController != null)
-        {
-            minimapController.SetMiniMapActive(!isOpened);
-        }
 
         Cursor.lockState = isOpened ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = isOpened;

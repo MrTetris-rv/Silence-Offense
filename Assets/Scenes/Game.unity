@@ -2588,7 +2588,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &550430374
 RectTransform:
@@ -3820,7 +3820,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.73333335, b: 0, a: 1}
+  m_Color: {r: 0.90188676, g: 0.81339973, b: 0.5700605, a: 1}
   m_Intensity: 1.29
   m_Range: 10
   m_SpotAngle: 30
@@ -10057,6 +10057,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelMenu: {fileID: 550430370}
   gameUI: {fileID: 65029324}
+  loadingScreen: {fileID: 8311611082402524142, guid: e449d515280e42e4d95de7dcb7890b6f,
+    type: 3}
 --- !u!1 &1866772805
 GameObject:
   m_ObjectHideFlags: 0

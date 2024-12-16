@@ -7,7 +7,7 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject spawnPoint;
 
-    public static event Action<MinimapController> OnPlayerReady;
+    public static event Action OnPlayerReady;
 
     private void Start()
     {
@@ -23,12 +23,6 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         GameObject player = PhotonNetwork.Instantiate("Player", spawnPoint.transform.position, Quaternion.identity);
-
-        MinimapController minimapController = player.GetComponent<MinimapController>();
-
-        if (minimapController != null)
-        {
-            OnPlayerReady?.Invoke(minimapController);
-        }
+        OnPlayerReady?.Invoke();   
     }
 }
