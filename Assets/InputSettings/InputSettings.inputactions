@@ -156,8 +156,30 @@
         {
             "name": "UI",
             "id": "d8ccb53c-a544-486c-b0e0-c3addf693956",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "ca36b0f5-f95e-4cab-a895-ea11a0190f49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b55ad4fb-2241-48b8-9c67-5312a8d4d88b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

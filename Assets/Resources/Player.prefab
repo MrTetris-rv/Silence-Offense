@@ -766,10 +766,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 843195803012565781}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 215642fa22415b7409bbd84317684bd8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1372598755406897285}
   m_SourcePrefab: {fileID: 100100000, guid: 215642fa22415b7409bbd84317684bd8, type: 3}
 --- !u!4 &8330008946799995175 stripped
 Transform:
@@ -932,16 +928,3 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &1372598755406897285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706007475337737117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 067969d63c571a44e863d29d5dcbd83f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  miniMap: {fileID: 5084096516719113003}
