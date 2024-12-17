@@ -25,6 +25,8 @@ public class LoadScreen : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         StartCoroutine(UpdateProgressBar());
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private IEnumerator UpdateProgressBar()
@@ -44,7 +46,8 @@ public class LoadScreen : MonoBehaviour
             yield return null; 
         }
 
-        Destroy(loadingScreen);
+        gameObject.SetActive(false);
+        //Destroy(loadingScreen);
     }
 
     private void OnPlayerReady()

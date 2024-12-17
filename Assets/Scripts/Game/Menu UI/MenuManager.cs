@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject panelMenu;
     [SerializeField] private GameObject gameUI;
-    [SerializeField] private GameObject loadingScreen;
+    //[SerializeField] private GameObject loadingScreen;
 
     private bool _isOpenedMenu;
     private bool _isReadyPlayer = false;
@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerSpawner.OnPlayerReady += InitializeMiniMap;
-        Instantiate(loadingScreen);
+        //Instantiate(loadingScreen);
     }
 
     private void OnDisable()
@@ -40,8 +40,20 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    //public void OpenMenu()
+    //{
+
+    //}
+
     private void SetMenuState(bool isOpened)
     {
+        //if (_isOpenedMenu) {
+        //    MainMenuManager.Instance.OpenMenu("menuSettings");
+        //}
+        ////else {
+        ////    MainMenuManager.Instance.CloseMenu();
+        ////}
+
         panelMenu.SetActive(isOpened);
         gameUI.SetActive(!isOpened);
 
@@ -60,8 +72,10 @@ public class MenuManager : MonoBehaviour
         {
             PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
             PhotonNetwork.Disconnect();
             SceneManager.LoadScene("MainMenu");
+            Debug.Log("Disconnect");
         }
     }
 }

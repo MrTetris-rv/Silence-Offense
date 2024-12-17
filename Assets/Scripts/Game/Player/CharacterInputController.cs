@@ -36,8 +36,14 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
         {
             _gameInput.Player.Jump.performed += OnJumpPerformed;
             _gameInput.Player.Fire.performed += OnFirePerfomed;
+            //_gameInput.UI.OpenMenu.performed += OnOpenMenuPerformed;
         }
     }
+
+    //private void OnOpenMenuPerformed(InputAction.CallbackContext context)
+    //{
+    //    MainMenuManager.Instance.OpenMenu()
+    //}
 
     [PunRPC]
     private void Shoot()

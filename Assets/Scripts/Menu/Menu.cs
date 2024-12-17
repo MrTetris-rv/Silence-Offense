@@ -11,11 +11,15 @@ public class Menu : MonoBehaviour
     {
         isOpen = true;
         gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     public void Close()
     {
         isOpen = false; 
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
