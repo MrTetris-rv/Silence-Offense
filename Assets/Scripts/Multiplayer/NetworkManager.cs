@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,9 +12,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField roomNameInputField;
     [SerializeField] private TextMeshProUGUI errorText;
     [SerializeField] private TextMeshProUGUI roomNameText;
-    [SerializeField] private int maxPlayers = 10;
+    [SerializeField] private byte maxPlayers = 10;
     [SerializeField] private GameObject roomListItemPrefab;
+    [SerializeField] private GameObject playerListItemPrefab;
     [SerializeField] private Transform roomListContent;
+    [SerializeField] private Transform playerListContent;
+    [SerializeField] private GameObject startGameButton;
+
+    public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
 
     private void Awake()
     {
@@ -28,11 +34,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnJoinedLobby()
     {
         MainMenuManager.Instance.OpenMenu("title");
+        PhotonNetwork.NickName = $"Player_" + Guid.NewGuid();
     }
 
     public void CreateRoom()
@@ -52,7 +60,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         MainMenuManager.Instance.OpenMenu("room");
-        roomNameText.text = roomNameInputField.text;
+        roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+
+        Player[] players = PhotonNetwork.PlayerList;
+
+        foreach (var player in players)
+        {
+            var user = Instantiate(playerListItemPrefab, playerListContent);
+            user.GetComponent<PlayerListItem>().SetUp(player);
+            //user.GetComponent<PlayerListItem>().IsMaster(player);
+        }
+
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        //playerListContent.GetChild(0).GetComponent<PlayerListItem>().IsMaster(newMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -74,21 +99,65 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("Update");
+        UpdateCachedRoomList(roomList);
+
         foreach (Transform trans in roomListContent)
         {
             Destroy(trans.gameObject);
         }
 
-        foreach (var room in roomList)
+        foreach (var roomInfo in cachedRoomList)
         {
-            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(room);
+            if (cachedRoomList[roomInfo.Key].RemovedFromList) continue;
+            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomInfo.Value);
         }
     }
 
-    public void JoinRoom(RoomInfo roomInfo)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        PhotonNetwork.JoinRoom(roomInfo.Name);
+        Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+
+    }
+
+    public void JoinRoom(RoomInfo info)
+    {
+        PhotonNetwork.JoinRoom(info.Name);
         MainMenuManager.Instance.OpenMenu("loading");
+    }
+
+    private void UpdateCachedRoomList(List<RoomInfo> roomList)
+    {
+        foreach(var info in roomList)
+        {
+            if (info.RemovedFromList)
+            {
+                cachedRoomList.Remove(info.Name);
+            }
+            else
+            {
+                cachedRoomList[info.Name] = info;
+                Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(info);
+            }
+        }
+    }
+
+    public override void OnLeftLobby()
+    {
+        cachedRoomList.Clear();
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        cachedRoomList.Clear();
+    }
+
+    public void QuickMatch()
+    {
+        PhotonNetwork.JoinRandomOrCreateRoom();
+    }
+
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel(1);
     }
 }

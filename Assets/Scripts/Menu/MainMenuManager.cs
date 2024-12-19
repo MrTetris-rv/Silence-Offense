@@ -44,21 +44,8 @@ public class MainMenuManager : MonoBehaviour
         menu.Close();
     }
 
-    //public void OnCreateAServer()
-    //{
-    //    SceneManager.LoadScene("Game");
-    //}
-    //public void OnJoinServer()
-    //{
-
-    //}
     //public void OnSettings()
     //{
 
     //}
-
-    public void OnExit()
-    {
-        Application.Quit();
-    }
 }
