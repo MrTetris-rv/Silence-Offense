@@ -64,6 +64,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         Player[] players = PhotonNetwork.PlayerList;
 
+        foreach(Transform childObject in playerListContent)
+        {
+            Destroy(childObject.gameObject);
+        }
+
         foreach (var player in players)
         {
             var user = Instantiate(playerListItemPrefab, playerListContent);
