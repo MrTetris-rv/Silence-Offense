@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject panelMenu;
     [SerializeField] private GameObject gameUI;
-    //[SerializeField] private GameObject loadingScreen;
+    [SerializeField] private GameObject loadingScreen;
 
     private bool _isOpenedMenu;
     private bool _isReadyPlayer = false;
@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerSpawner.OnPlayerReady += InitializeMiniMap;
-        //Instantiate(loadingScreen);
+        Instantiate(loadingScreen);
     }
 
     private void OnDisable()

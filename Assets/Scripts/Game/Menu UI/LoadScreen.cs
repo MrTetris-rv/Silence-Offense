@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class LoadScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider loadingSlider;
 
     private bool _playerIsReady = false;
@@ -23,7 +22,6 @@ public class LoadScreen : MonoBehaviour
 
     private void Start()
     {
-        loadingScreen.SetActive(true);
         StartCoroutine(UpdateProgressBar());
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -45,9 +43,8 @@ public class LoadScreen : MonoBehaviour
             loadingSlider.value = _progress;
             yield return null; 
         }
-
-        gameObject.SetActive(false);
-        //Destroy(loadingScreen);
+        Debug.Log("Destroy");
+        Destroy(gameObject);
     }
 
     private void OnPlayerReady()
