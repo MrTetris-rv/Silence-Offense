@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e049708a5cb1c884eada0f0eca673732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamSelectionData: {fileID: 11400000, guid: d170698e4cf64cb4eb35f102956f7ac4, type: 2}
+  redTeamSpawnPoint: {fileID: 3120565038492017585, guid: 3332238241a170f48a6aed45b078841e,
+    type: 3}
+  blueTeamSpawnPoint: {fileID: 7952876225245089203, guid: 63a72696f9e5c2a40baa7e0f57f9b22e,
+    type: 3}
 --- !u!114 &3275374360345218511
 MonoBehaviour:
   m_ObjectHideFlags: 0

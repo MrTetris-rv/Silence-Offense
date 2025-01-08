@@ -15,6 +15,11 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
     private void Awake()
     {
         GameObject player = PhotonNetwork.Instantiate("Player", spawnPoint.transform.position, Quaternion.identity);
-        OnPlayerReady?.Invoke();
+
+        if (player != null)
+        {
+            OnPlayerReady?.Invoke();
+        }
+      
     }
 }

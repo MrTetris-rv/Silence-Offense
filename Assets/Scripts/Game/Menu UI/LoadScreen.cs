@@ -12,12 +12,12 @@ public class LoadScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerSpawner.OnPlayerReady += OnPlayerReady;
+        PlayerManager.OnPlayerReady += OnPlayerReady;
     }
 
     private void OnDisable()
     {
-        PlayerSpawner.OnPlayerReady -= OnPlayerReady;
+        PlayerManager.OnPlayerReady -= OnPlayerReady;
     }
 
     private void Start()
@@ -43,7 +43,6 @@ public class LoadScreen : MonoBehaviour
             loadingSlider.value = _progress;
             yield return null; 
         }
-        Debug.Log("Destroy");
         Destroy(gameObject);
     }
 

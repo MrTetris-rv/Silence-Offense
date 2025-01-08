@@ -14,13 +14,13 @@ public class MenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerSpawner.OnPlayerReady += InitializeMiniMap;
-        Instantiate(loadingScreen);
+        PlayerManager.OnPlayerReady += InitializeMiniMap;
+        //Instantiate(loadingScreen);
     }
 
     private void OnDisable()
     {
-        PlayerSpawner.OnPlayerReady -= InitializeMiniMap;
+        PlayerManager.OnPlayerReady -= InitializeMiniMap;
         _isReadyPlayer = false;
     }
 
