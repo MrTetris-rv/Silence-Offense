@@ -17,11 +17,11 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
         masterImage.SetActive(_player.IsMasterClient);
     }
 
-    public void IsMaster(Player player)
-    {
-        _player = player;
-        masterImage.SetActive(_player.IsMasterClient);
-    }
+    //public void IsMaster(Player player)
+    //{
+    //    _player = player;
+    
+    //}
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
@@ -29,6 +29,11 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
         {
             Destroy(gameObject);
         }
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        masterImage.SetActive(_player.IsMasterClient);
     }
 
     public override void OnLeftRoom()

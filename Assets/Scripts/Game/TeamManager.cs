@@ -7,7 +7,6 @@ public class TeamManager : MonoBehaviour
     [SerializeField] private GameObject redTeamPosition;
     [SerializeField] private GameObject blueTeamPosition;
 
-
     public static event Action OnTeamChoiceReady;
 
     private void Start()
