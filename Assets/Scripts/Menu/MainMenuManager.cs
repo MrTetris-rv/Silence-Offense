@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     {
         foreach (var menuElement in menus)
         {
-            if (menuElement.menuName == menuName)
+            if (menuElement.menuName == menuName) //проверить, что лучше .Equals или ==
             {
                 menuElement.Open();
             }
