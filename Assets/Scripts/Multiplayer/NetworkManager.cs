@@ -24,6 +24,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
+
+        PhotonNetwork.LogLevel = PunLogLevel.Full;
+        Debug.Log("Photon LogLevel set to Full");
     }
 
     private void Start()
@@ -73,7 +76,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             var user = Instantiate(playerListItemPrefab, playerListContent);
             user.GetComponent<PlayerListItem>().SetUp(player);
-            //user.GetComponent<PlayerListItem>().IsMaster(player);
         }
 
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
@@ -82,7 +84,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-        //playerListContent.GetChild(0).GetComponent<PlayerListItem>().IsMaster(newMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

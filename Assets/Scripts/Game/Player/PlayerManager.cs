@@ -50,23 +50,38 @@ public class PlayerManager : MonoBehaviour
 
     private void TeamChoiceReady()
     {
-        if (teamSelectionData.selectedTeam == "Terrorist")
-        {
-            _spawnPoint = redTeamSpawnPoint;
-        }
-        else if (teamSelectionData.selectedTeam == "Counter-terrorist")
-        {
-            _spawnPoint = blueTeamSpawnPoint;
-        }
-        else
-        {
-            Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
-            return;
-        }
-
         if (_photonView.IsMine)
         {
+            if (teamSelectionData.selectedTeam == "Terrorist")
+            {
+                _spawnPoint = redTeamSpawnPoint;
+            }
+            else if (teamSelectionData.selectedTeam == "Counter-terrorist")
+            {
+                _spawnPoint = blueTeamSpawnPoint;
+            }
+            else
+            {
+                Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
+                return;
+            }
+
+            _photonView.RPC("SyncTeam", RpcTarget.AllBuffered, teamSelectionData.selectedTeam);
+
             CreateController();
         }
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            Debug.Log($"Player {player.NickName} team: {player.CustomProperties["Team"]}");
+        }
+    }
+
+    [PunRPC]
+    private void SyncTeam(string team)
+    {
+        teamSelectionData.selectedTeam = team;
+
+        Debug.Log($"Synchronized team: {team}");
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5927009278462428205}
   - component: {fileID: 3313115397382552461}
-  - component: {fileID: 3275374360345218511}
+  - component: {fileID: -3494443084569434729}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -50,7 +50,7 @@ MonoBehaviour:
     type: 3}
   blueTeamSpawnPoint: {fileID: 7952876225245089203, guid: 63a72696f9e5c2a40baa7e0f57f9b22e,
     type: 3}
---- !u!114 &3275374360345218511
+--- !u!114 &-3494443084569434729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
