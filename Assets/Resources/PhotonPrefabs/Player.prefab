@@ -766,6 +766,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -701466243813308924}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 215642fa22415b7409bbd84317684bd8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7056097379849245209}
   m_SourcePrefab: {fileID: 100100000, guid: 215642fa22415b7409bbd84317684bd8, type: 3}
 --- !u!4 &8330008946799995175 stripped
 Transform:
@@ -892,6 +896,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -701466243813308924}
+  - {fileID: 7056097379849245209}
   sceneViewId: 0
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -909,5 +914,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
+--- !u!114 &7056097379849245209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706007475337737117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isJumping
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0

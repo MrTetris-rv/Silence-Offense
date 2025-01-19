@@ -50,6 +50,8 @@ MonoBehaviour:
     type: 3}
   blueTeamSpawnPoint: {fileID: 7952876225245089203, guid: 63a72696f9e5c2a40baa7e0f57f9b22e,
     type: 3}
+  spawnPoint: {fileID: 3120565038492017585, guid: 3332238241a170f48a6aed45b078841e,
+    type: 3}
 --- !u!114 &-3494443084569434729
 MonoBehaviour:
   m_ObjectHideFlags: 0

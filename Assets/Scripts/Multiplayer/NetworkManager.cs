@@ -43,7 +43,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         MainMenuManager.Instance.OpenMenu("title");
-        PhotonNetwork.NickName = $"Player_" + Guid.NewGuid();
+        PhotonNetwork.NickName = PlayerPrefs.GetString("PlayerName");
     }
 
     public void CreateRoom()
