@@ -3,14 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public static MainMenuManager Instance;
-
     [SerializeField] Menu[] menus;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     public void OpenMenu(string menuName)
     {

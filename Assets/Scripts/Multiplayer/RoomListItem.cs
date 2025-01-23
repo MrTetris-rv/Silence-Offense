@@ -1,6 +1,7 @@
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class RoomListItem : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class RoomListItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numberPlayersText;
 
     private RoomInfo _roomInfo;
+
+    [Inject] NetworkManager networkManager;
 
     public void SetUp(RoomInfo roomInfo)
     {
@@ -18,6 +21,6 @@ public class RoomListItem : MonoBehaviour
 
     public void OnClick()
     {
-        NetworkManager.Instance.JoinRoom(_roomInfo);
+        networkManager.JoinRoom(_roomInfo);
     }
 }

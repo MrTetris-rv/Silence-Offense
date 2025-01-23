@@ -5,28 +5,31 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private TeamSelectionData teamSelectionData; 
+    [SerializeField] private TeamSelectionData teamSelectionData;
     [SerializeField] private Transform redTeamSpawnPoint;
     [SerializeField] private Transform blueTeamSpawnPoint;
+    [SerializeField] private Transform spawnPoint;
 
     private PhotonView _photonView;
-    private Transform _spawnPoint = null;
+    //private Transform _spawnPoint;
 
     public static event Action OnPlayerReady;
 
     private void Awake()
     {
         _photonView = GetComponent<PhotonView>();
+        //_spawnPoint.position = new Vector3(4.57f, 0, 3.22f);
     }
 
     private void OnEnable()
     {
-        TeamManager.OnTeamChoiceReady += TeamChoiceReady;
+        //TeamManager.OnTeamChoiceReady += TeamChoiceReady;
+        if (_photonView.IsMine) CreateController();
     }
 
     private void OnDisable()
     {
-        TeamManager.OnTeamChoiceReady -= TeamChoiceReady;
+        //TeamManager.OnTeamChoiceReady -= TeamChoiceReady;
     }
 
     private void CreateController()
@@ -37,51 +40,67 @@ public class PlayerManager : MonoBehaviour
         //    return;
         //}
 
-       if(_spawnPoint != null)
-        {
-            GameObject player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), _spawnPoint.position, _spawnPoint.rotation);
+        //if(_spawnPoint != null)
+        // {
+        GameObject player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
 
-            if (player != null)
-            {
-                OnPlayerReady?.Invoke();
-            }
-        }
+        OnPlayerReady?.Invoke();
+
+        // }
     }
 
-    private void TeamChoiceReady()
-    {
-        if (_photonView.IsMine)
-        {
-            if (teamSelectionData.selectedTeam == "Terrorist")
-            {
-                _spawnPoint = redTeamSpawnPoint;
-            }
-            else if (teamSelectionData.selectedTeam == "Counter-terrorist")
-            {
-                _spawnPoint = blueTeamSpawnPoint;
-            }
-            else
-            {
-                Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
-                return;
-            }
+    //private void TeamChoiceReady()
+    //{
+    //    if (string.IsNullOrEmpty(teamSelectionData.selectedTeam))
+    //    {
+    //        Debug.LogError("Selected team is invalid!");
+    //        return;
+    //    }
 
-            _photonView.RPC("SyncTeam", RpcTarget.AllBuffered, teamSelectionData.selectedTeam);
+    //    if (_photonView.IsMine)
+    //    {
+    //        if (teamSelectionData.selectedTeam == "Terrorist")
+    //        {
+    //            _spawnPoint = redTeamSpawnPoint;
+    //        }
+    //        else if (teamSelectionData.selectedTeam == "Counter-terrorist")
+    //        {
+    //            _spawnPoint = blueTeamSpawnPoint;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
+    //            return;
+    //        }
 
-            CreateController();
-        }
+    //        string[] teamData = new string[] { PhotonNetwork.LocalPlayer.NickName, teamSelectionData.selectedTeam };
+    //        _photonView.RPC("SyncTeam", RpcTarget.AllBuffered, teamData);
 
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            Debug.Log($"Player {player.NickName} team: {player.CustomProperties["Team"]}");
-        }
-    }
+
+    //        CreateController();
+    //    }
+
+    //    foreach (var player in PhotonNetwork.PlayerList)
+    //    {
+    //        Debug.Log($"Player {player.NickName} team: {player.CustomProperties["Team"]}");
+    //    }
+    //}
 
     [PunRPC]
-    private void SyncTeam(string team)
+    private void SyncTeam(string[] teamData)
     {
-        teamSelectionData.selectedTeam = team;
+        string playerName = teamData[0];
+        string team = teamData[1];
 
-        Debug.Log($"Synchronized team: {team}");
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable
+    {
+        { "Team", team }
+    };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+
+        Debug.Log($"Synchronized team {team} for player {playerName}.");
     }
+
+
 }
