@@ -122,6 +122,9 @@ public class PlayerController : MonoBehaviour, IControllable
 
     private void MoveInternal()
     {
+        if (_moveDirection == Vector3.zero && _characterController.velocity.magnitude == 0f)
+            return;
+
         Vector3 cameraForward = Vector3.ProjectOnPlane(_mainCamera.forward, Vector3.up).normalized;
         Vector3 cameraRight = _mainCamera.right.normalized;
 
