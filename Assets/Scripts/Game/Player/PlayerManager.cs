@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform blueTeamSpawnPoint;
     [SerializeField] private Transform spawnPoint;
 
+
     private PhotonView _photonView;
     //private Transform _spawnPoint;
 
@@ -42,7 +43,7 @@ public class PlayerManager : MonoBehaviour
 
         //if(_spawnPoint != null)
         // {
-        GameObject player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
 
         OnPlayerReady?.Invoke();
 
@@ -59,34 +60,46 @@ public class PlayerManager : MonoBehaviour
 
     //    if (_photonView.IsMine)
     //    {
-    //        if (teamSelectionData.selectedTeam == "Terrorist")
-    //        {
-    //            _spawnPoint = redTeamSpawnPoint;
-    //        }
-    //        else if (teamSelectionData.selectedTeam == "Counter-terrorist")
-    //        {
-    //            _spawnPoint = blueTeamSpawnPoint;
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
-    //            return;
-    //        }
-
-    //        string[] teamData = new string[] { PhotonNetwork.LocalPlayer.NickName, teamSelectionData.selectedTeam };
-    //        _photonView.RPC("SyncTeam", RpcTarget.AllBuffered, teamData);
-
-
-    //        CreateController();
-    //    }
-
-    //    foreach (var player in PhotonNetwork.PlayerList)
-    //    {
-    //        Debug.Log($"Player {player.NickName} team: {player.CustomProperties["Team"]}");
-    //    }
+    //switch (teamSelectionData.selectedTeam)
+    //{
+    //    case "Terrorist":
+    //        spawnPoint = redTeamSpawnPoint;
+    //        break;
+    //    case "Counter-terrorist":
+    //        spawnPoint = blueTeamSpawnPoint;
+    //        break;
+    //    default:
+    //        Debug.LogError($"Undefined team: {team}");
+    //        break;
     //}
+//        if (teamSelectionData.selectedTeam == "Terrorist")
+//        {
+//            _spawnPoint = redTeamSpawnPoint;
+//        }
+//        else if (teamSelectionData.selectedTeam == "Counter-terrorist")
+//        {
+//            _spawnPoint = blueTeamSpawnPoint;
+//        }
+//        else
+//        {
+//            Debug.LogError($"Team {teamSelectionData.selectedTeam} is not defined!");
+//            return;
+//        }
 
-    [PunRPC]
+//        string[] teamData = new string[] { PhotonNetwork.LocalPlayer.NickName, teamSelectionData.selectedTeam };
+//        _photonView.RPC("SyncTeam", RpcTarget.AllBuffered, teamData);
+
+
+//        CreateController();
+//    }
+
+//    foreach (var player in PhotonNetwork.PlayerList)
+//    {
+//        Debug.Log($"Player {player.NickName} team: {player.CustomProperties["Team"]}");
+//    }
+//}
+
+[PunRPC]
     private void SyncTeam(string[] teamData)
     {
         string playerName = teamData[0];

@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 11538673}
   - component: {fileID: 11538672}
   - component: {fileID: 11538671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 121942029}
   - component: {fileID: 121942028}
   - component: {fileID: 121942027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2738,7 +2738,7 @@ GameObject:
   - component: {fileID: 496310774}
   - component: {fileID: 496310773}
   - component: {fileID: 496310772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6565,7 +6565,7 @@ GameObject:
   - component: {fileID: 1198048790}
   - component: {fileID: 1198048789}
   - component: {fileID: 1198048788}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7348,7 +7348,7 @@ GameObject:
   - component: {fileID: 1275705977}
   - component: {fileID: 1275705976}
   - component: {fileID: 1275705975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11829,7 +11829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538600477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13318,7 +13318,7 @@ GameObject:
   - component: {fileID: 1988096655}
   - component: {fileID: 1988096654}
   - component: {fileID: 1988096653}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PolyShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,6 @@
+using Photon.Pun;
 using System;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.InputSystem;
 
 public class CharacterInputController : MonoBehaviourPunCallbacks
@@ -9,9 +9,11 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
     private InputSettings _gameInput;
     private Vector2 moveInput;
 
+    private PhotonView _photonView;
     private void Awake()
     {
-        if (photonView.IsMine)
+        _photonView = GetComponent<PhotonView>();
+        if (_photonView.IsMine)
         {
             _gameInput = new InputSettings();
             _gameInput.Enable();
@@ -23,7 +25,7 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (photonView.IsMine)
+        if (_photonView.IsMine)
         {
             _gameInput.Player.Move.performed += ctx => Move(ctx);
             _gameInput.Player.Move.canceled += ctx => Stop();
@@ -32,7 +34,7 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
 
     public override void OnEnable()
     {
-        if (photonView.IsMine)
+        if (_photonView.IsMine)
         {
             _gameInput.Player.Jump.performed += OnJumpPerformed;
             _gameInput.Player.Fire.performed += OnFirePerfomed;
@@ -53,7 +55,7 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
 
     private void OnFirePerfomed(InputAction.CallbackContext context)
     {
-        photonView.RPC("Shoot", RpcTarget.All);
+        _photonView.RPC("Shoot", RpcTarget.All);
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
@@ -63,7 +65,7 @@ public class CharacterInputController : MonoBehaviourPunCallbacks
 
     public override void OnDisable()
     {
-        if (photonView.IsMine)
+        if (_photonView.IsMine)
         {
             _gameInput.Player.Jump.performed -= OnJumpPerformed;
             _gameInput.Player.Fire.performed -= OnFirePerfomed;
