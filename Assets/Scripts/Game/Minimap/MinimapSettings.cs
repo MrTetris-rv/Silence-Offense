@@ -1,9 +1,10 @@
 using Cinemachine;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinimapSettings : MonoBehaviour
+public class MinimapSettings : MonoBehaviourPunCallbacks
 {
     private Transform _mainCamera;
 

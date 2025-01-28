@@ -66,11 +66,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
         Player[] players = PhotonNetwork.PlayerList;
-
-        foreach(Transform childObject in playerListContent)
-        {
-            Destroy(childObject.gameObject);
-        }
+        ClearChildObjects(playerListContent);
 
         foreach (var player in players)
         {
@@ -106,11 +102,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         UpdateCachedRoomList(roomList);
-
-        foreach (Transform trans in roomListContent)
-        {
-            Destroy(trans.gameObject);
-        }
+        ClearChildObjects(roomListContent);
 
         foreach (var roomInfo in cachedRoomList)
         {
@@ -164,5 +156,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
+    }
+
+    private void ClearChildObjects(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

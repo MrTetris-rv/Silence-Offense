@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.IO;
 using UnityEngine;
+using Zenject;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform blueTeamSpawnPoint;
     [SerializeField] private Transform spawnPoint;
 
+    [Inject]
+    private IPlayerFactory _playerFactory;
 
     private PhotonView _photonView;
     //private Transform _spawnPoint;
@@ -43,7 +46,8 @@ public class PlayerManager : MonoBehaviour
 
         //if(_spawnPoint != null)
         // {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
+        _playerFactory.CreatePlayer(spawnPoint.position, Quaternion.identity);
+        //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
 
         OnPlayerReady?.Invoke();
 

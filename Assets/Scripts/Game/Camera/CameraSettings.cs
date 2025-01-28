@@ -21,7 +21,6 @@ public class CameraSettings : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             _pov.VirtualCamera.Follow = this.transform;
-          
         }
     }
 }
