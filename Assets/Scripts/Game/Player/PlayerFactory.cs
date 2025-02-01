@@ -1,21 +1,20 @@
-using Photon.Pun;
 using UnityEngine;
+using Zenject;
 
 public class PlayerFactory : IPlayerFactory
 {
+    private readonly DiContainer _container;
     private readonly GameObject _playerPrefab;
 
-    public PlayerFactory(string playerPrefabPath)
+    public PlayerFactory(DiContainer container, GameObject playerPrefab)
     {
-        _playerPrefab = Resources.Load<GameObject>(playerPrefabPath);
-        if (_playerPrefab == null)
-        {
-            Debug.LogError($"Player prefab not found at path: {playerPrefabPath}");
-        }
+        _container = container;
+        _playerPrefab = playerPrefab;
     }
 
     public GameObject CreatePlayer(Vector3 position, Quaternion rotation)
     {
-        return PhotonNetwork.Instantiate(_playerPrefab.name, position, rotation, 0);
+        GameObject player = _container.InstantiatePrefab(_playerPrefab, position, rotation, null);
+        return player;
     }
 }

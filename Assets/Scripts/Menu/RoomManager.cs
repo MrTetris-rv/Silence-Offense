@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
@@ -26,7 +27,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (scene.buildIndex == 1)
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+            GameObject playerManager = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+            ProjectContext.Instance.Container.Inject(playerManager.GetComponent<PlayerManager>());
         }
     }
 }

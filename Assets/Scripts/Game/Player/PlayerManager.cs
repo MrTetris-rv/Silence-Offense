@@ -4,25 +4,27 @@ using System.IO;
 using UnityEngine;
 using Zenject;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
     [SerializeField] private TeamSelectionData teamSelectionData;
     [SerializeField] private Transform redTeamSpawnPoint;
     [SerializeField] private Transform blueTeamSpawnPoint;
     [SerializeField] private Transform spawnPoint;
 
-    [Inject]
-    private IPlayerFactory _playerFactory;
-
     private PhotonView _photonView;
-    //private Transform _spawnPoint;
+    private Transform _spawnPoint;
 
     public static event Action OnPlayerReady;
+
+    [Inject] private IPlayerFactory _playerFactory;
 
     private void Awake()
     {
         _photonView = GetComponent<PhotonView>();
-        //_spawnPoint.position = new Vector3(4.57f, 0, 3.22f);
+        if (photonView.IsMine)
+        {
+            ProjectContext.Instance.Container.Inject(this);
+        }
     }
 
     private void OnEnable()
@@ -46,7 +48,10 @@ public class PlayerManager : MonoBehaviour
 
         //if(_spawnPoint != null)
         // {
-        _playerFactory.CreatePlayer(spawnPoint.position, Quaternion.identity);
+        Vector3 spawnPosition = Vector3.zero;
+        Quaternion spawnRotation = Quaternion.identity;
+        GameObject player = _playerFactory.CreatePlayer(spawnPosition, spawnRotation);
+        PhotonNetwork.Instantiate("Player", spawnPosition, spawnRotation);
         //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint.position, Quaternion.identity);
 
         OnPlayerReady?.Invoke();
